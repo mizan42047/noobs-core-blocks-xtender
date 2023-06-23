@@ -51,7 +51,14 @@ final class Noobs_Core_Block_Xtender {
 		load_plugin_textdomain('noobs-core-blocks-xtender', false, NOOBS_CORE_BLOCKS_XTENDER_PATH . '/languages');
 	}
 
-	public function noobs_core_blocks_xtender_enqueue_block_editor_assets() {}
+	public function noobs_core_blocks_xtender_enqueue_block_editor_assets() {
+		$asset_files = include NOOBS_CORE_BLOCKS_XTENDER_PATH. "build/index.asset.php";
+
+		if(!empty($asset_files)){
+			wp_enqueue_style('noobs-core-blocks-xtender-styles', NOOBS_CORE_BLOCKS_XTENDER_URL . 'build/index.css', [], $asset_files['version']);
+			wp_enqueue_script('noobs-core-blocks-xtender-scripts', NOOBS_CORE_BLOCKS_XTENDER_URL . 'build/index.js', $asset_files['dependencies'], $asset_files['version'], true);
+		}
+	}
 
 	public function noobs_core_blocks_xtender_enqueue_block_assets() {}
 
